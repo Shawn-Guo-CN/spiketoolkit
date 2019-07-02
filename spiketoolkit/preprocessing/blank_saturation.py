@@ -19,7 +19,7 @@ class BlankSaturationRecording(RecordingExtractor):
         self._recording = recording
         random_data = self._get_random_data_for_scaling().ravel()
         q = np.quantile(random_data,[0.001, 0.5, 1-0.001])
-        if 2*q[1]-q[0]-q[2]<2*np.min([q[1]-q[0],q[2]-q[1]]):
+        if q[2]-q[0]<3*np.min([q[1]-q[0],q[2]-q[1]]):
             print('Warning, narrow signal range suggests artefact-free data.')
         self._median = q[1]
         if threshold is None:
